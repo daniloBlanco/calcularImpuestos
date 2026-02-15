@@ -1,18 +1,38 @@
-document.querySelector(".calcular").addEventListener("click", calcularTodo);
+// El botón "CALCULAR" fue removido del HTML; no se asigna listener.
 
-function calcularTodo() {
-  if (!validarCampos()) return;
+// Calcular y mostrar todos los montos, y sumar según checkboxes
+function actualizarCalculos() {
+  const salarioInput = document.getElementById("salario").value;
+  const fechaIngresoVal = document.getElementById("fecha").value;
+  const fechaSalidaVal = document.getElementById("fechaSalida").value;
 
-  const salario = parseFloat(document.getElementById("salario").value);
-  const fechaIngreso = new Date(document.getElementById("fecha").value);
-  const fechaSalida = new Date(document.getElementById("fechaSalida").value);
+  if (!salarioInput || !fechaIngresoVal || !fechaSalidaVal) {
+    // Reiniciar pantallas si faltan datos
+    [
+      "sumatoriaaSalarios",
+      "salarioPromedioMensual",
+      "salarioPdiario",
+      "montoPreaviso",
+      "montoAntes1992",
+      "montoDespues1992",
+      "montoVacaciones",
+      "subTotal",
+      "montoNavidad",
+      "totalFinal",
+    ].forEach((id) => (document.getElementById(id).innerText = "RD$0.00"));
+    return;
+  }
+
+  const salario = parseFloat(salarioInput);
+  const fechaIngreso = new Date(fechaIngresoVal);
+  const fechaSalida = new Date(fechaSalidaVal);
 
   const salarioDiario = salario / 23.83;
 
   const años = fechaSalida.getFullYear() - fechaIngreso.getFullYear();
   const meses = años * 12 + (fechaSalida.getMonth() - fechaIngreso.getMonth());
 
-  // ================= RESUMEN INICIAL =================
+  // Resumen inicial
   const sumatoriasSalarios = salario * meses;
   const salarioPromedioMensual = sumatoriasSalarios / Math.max(meses, 1);
 
@@ -24,78 +44,67 @@ function calcularTodo() {
   document.getElementById("salarioPdiario").innerText =
     formatear(salarioDiario);
 
+  // Calcular montos independientes (siempre se muestran)
+  // Preaviso: calcular días según meses trabajados
+  let diasPreaviso = 0;
+  if (meses >= 3 && meses < 6) diasPreaviso = 7;
+  else if (meses >= 6 && meses < 12) diasPreaviso = 14;
+  else if (meses >= 12) diasPreaviso = 28;
+  const montoPreaviso = salarioDiario * diasPreaviso;
+  document.getElementById("montoPreaviso").innerText = formatear(montoPreaviso);
+
+  // Cesantía (antes y después de 1992)
+  const cesantia = calcularCesantia(fechaIngreso, fechaSalida, salarioDiario);
+  document.getElementById("montoAntes1992").innerText = formatear(
+    cesantia.antes,
+  );
+  document.getElementById("montoDespues1992").innerText = formatear(
+    cesantia.despues,
+  );
+
+  // Vacaciones
+  let diasVacaciones = 0;
+  if (años >= 1 && años <= 5) diasVacaciones = 14;
+  else if (años > 5) diasVacaciones = 18;
+  const montoVacaciones = salarioDiario * diasVacaciones;
+  document.getElementById("montoVacaciones").innerText =
+    formatear(montoVacaciones);
+
+  // Navidad
+  const montoNavidad = salario / 12;
+  document.getElementById("montoNavidad").innerText = formatear(montoNavidad);
+
+  // Subtotal y total considerando checkboxes actuales
   let subTotal = 0;
-
-  // ================= PREAVISO =================
-  if (!document.getElementById("preAvisado").checked) {
-    let diasPreaviso = 0;
-
-    if (meses >= 3 && meses < 6) diasPreaviso = 7;
-    else if (meses >= 6 && meses < 12) diasPreaviso = 14;
-    else if (meses >= 12) diasPreaviso = 28;
-
-    const montoPreaviso = salarioDiario * diasPreaviso;
-
-    document.getElementById("montoPreaviso").innerText =
-      formatear(montoPreaviso);
-    subTotal += montoPreaviso;
-  } else {
-    document.getElementById("montoPreaviso").innerText = "RD$0.00";
-  }
-
-  // ================= CESANTIA =================
-  if (document.getElementById("incluirCesantia").checked) {
-    const cesantia = calcularCesantia(fechaIngreso, fechaSalida, salarioDiario);
-
-    document.getElementById("montoAntes1992").innerText = formatear(
-      cesantia.antes,
-    );
-    document.getElementById("montoDespues1992").innerText = formatear(
-      cesantia.despues,
-    );
-
+  if (!document.getElementById("preAvisado").checked) subTotal += montoPreaviso;
+  if (document.getElementById("incluirCesantia").checked)
     subTotal += cesantia.antes + cesantia.despues;
-  } else {
-    document.getElementById("montoAntes1992").innerText = "RD$0.00";
-    document.getElementById("montoDespues1992").innerText = "RD$0.00";
-  }
-
-  // ================= VACACIONES =================
-  if (!document.getElementById("vacacionesTomadas").checked) {
-    let diasVacaciones = 0;
-
-    if (años >= 1 && años <= 5) diasVacaciones = 14;
-    else if (años > 5) diasVacaciones = 18;
-
-    const montoVacaciones = salarioDiario * diasVacaciones;
-
-    document.getElementById("montoVacaciones").innerText =
-      formatear(montoVacaciones);
-
+  if (!document.getElementById("vacacionesTomadas").checked)
     subTotal += montoVacaciones;
-  } else {
-    document.getElementById("montoVacaciones").innerText = "RD$0.00";
-  }
 
   document.getElementById("subTotal").innerText = formatear(subTotal);
 
-  // ================= NAVIDAD =================
   let total = subTotal;
-
-  if (document.getElementById("salarioNavidad").checked) {
-    const montoNavidad = salario / 12;
-
-    document.getElementById("montoNavidad").innerText = formatear(montoNavidad);
-
-    total += montoNavidad;
-  } else {
-    document.getElementById("montoNavidad").innerText = "RD$0.00";
-  }
+  if (document.getElementById("salarioNavidad").checked) total += montoNavidad;
 
   document.getElementById("totalFinal").innerText = formatear(total);
 
   animarTotal();
 }
+
+// Listeners para actualizar automáticamente al cambiar inputs o checkboxes
+["salario", "fecha", "fechaSalida"].forEach((id) =>
+  document.getElementById(id).addEventListener("input", actualizarCalculos),
+);
+
+[
+  "preAvisado",
+  "incluirCesantia",
+  "vacacionesTomadas",
+  "salarioNavidad",
+].forEach((id) =>
+  document.getElementById(id).addEventListener("change", actualizarCalculos),
+);
 
 // ================= FUNCIONES AUXILIARES =================
 

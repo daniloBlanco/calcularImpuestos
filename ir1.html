@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Impuestos sobre la renta</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="estilosIRS.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="imagenes/do_dominicana_fondo_1e293b.jpg" width="50" />
+        <span>Calculadora de Impuestos Dominicanos</span>
+      </div>
+
+      <ul class="nav-links">
+        <li>
+          <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+        </li>
+      </ul>
+
+      
+    </nav>
+          
+    <div class="main-area">
+
+        <h1 style="color: black;">Calculadora de Impuestos sobre la Renta</h1> 
+      <main class="content-principal">
+        <div class="form-group">
+            <div class="input-row">
+                <label for="nombre">Nombre</label>
+                <input type="text" placeholder="Ingrese su nombre" id="nombre" />
+            </div>
+            
+            <div class="input-row">
+                <label for="cedula">Cédula</label>
+                <input type="text" placeholder="Ingrese su cedula" id="cedula" />
+            </div>
+            
+            <div class="input-row">
+                <label for="salario">Salario base mensual</label>
+                <input type="text" placeholder="Ingrese su salario base mensual" id="salario" />
+            </div>
+        </div>
+
+        <div class="resumen-container">
+                <div class="card-resumen card-resumen-izquierda">
+
+                <div class="resumen-item">
+                <span>Ingresos totales anuales</span>
+                <strong id="sumatoriaaSalarios">RD$0.00</strong>
+                </div>
+
+
+                <div class="resumen-item">
+                <span>Salario promedio diario</span>
+                <strong id="salarioPdiario">RD$0.00</strong>
+                </div>
+
+                <div class="resumen-item">
+                <span>AFP</span>
+                <strong id="AFP">RD$0.00</strong>
+                </div>
+
+                <div class="resumen-item">
+                <span>ARS</span>
+                <strong id="ARS">RD$0.00</strong>
+                </div>
+         </div>
+
+          <div class="card-resumen card-resumen-derecha">
+
+                <div class="resumen-item">
+                <span>Salario Sub-neto mensual</span>
+                <strong id="salarioSubNetoMensual">RD$0.00</strong>
+                </div>
+
+                <div class="resumen-item">
+                <span>Total de impuestos</span>
+                <strong id="totalImpuestos">RD$0.00</strong>
+                </div>
+
+                <div class="resumen-item">
+                <span>Salario neto anual</span>
+                <strong id="salarioNetoAnual">RD$0.00</strong>
+                </div>
+
+                <div class="resumen-item">
+                <span>Total de impuestos anuales</span>
+                <strong id="totalImpuestosAnuales">RD$0.00</strong>
+                </div>
+
+          </div>
+        </div>
+        <br>
+        <div class="resumen-item">
+              <span>Salario Final a recibir</span>
+              <strong id="Salariofinal">RD$0.00</strong>
+            </div>
+
+
+        <br>
+        <button class="limpiar" onclick="limpiarCampos()">Limpiar Campos</button>
+          <button class="imprimirresultados" onclick="imprimir()">Imprimir Resultados</button>
+
+      </main>
+
+
+
+    </div>
+
+
+     <footer class="footer">
+      <p>© 2026 Calculadora de Impuestos Dominicanos</p>
+      <p>Este sitio no es oficial del Estado Dominicano.</p>
+    </footer>
+  </body>
+
+  <script src="impuesSR.js"></script>
+  
+
+</html>
