@@ -80,6 +80,7 @@ body {
   margin: 7px auto;
   padding: 20px;
   flex: 1;
+  width: 100%;
 }
 
 .content-principal {
@@ -109,7 +110,7 @@ body {
 }
 
 .main-area label {
-  margin-left: 160px;
+  margin-left: 0;
   color: #fdfdff;
   font-size: 14px;
   font-weight: 500;
@@ -117,7 +118,8 @@ body {
 }
 
 .main-area input {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   padding: 10px 15px;
   border: 1px solid #cbd5e1;
   border-radius: 15px;
@@ -189,18 +191,165 @@ button:hover {
 }
 
 /* RESPONSIVE */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 15px;
+  }
+
+  .logo {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .logo img {
+    width: 35px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .main-area {
+    padding: 10px;
+    margin: 5px auto;
   }
 
   .content-principal {
-    padding: 20px;
+    padding: 20px 15px;
+  }
+
+  .input-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .main-area label {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .main-area input {
+    width: 100%;
+    max-width: none;
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .resumen-container {
+    grid-template-columns: 1fr;
+  }
+
+  .resumen-item {
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 13px;
   }
 
   button {
-    flex: 100%;
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+
+  h1 {
+    margin-left: 0;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px;
+  }
+
+  .logo {
+    gap: 8px;
+  }
+
+  .logo img {
+    width: 30px;
+  }
+
+  .logo span {
+    font-size: 14px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    padding: 6px 10px;
+    gap: 5px;
+  }
+
+  .main-area {
+    padding: 8px;
+  }
+
+  .content-principal {
+    padding: 15px 10px;
+    border-radius: 8px;
+  }
+
+  .form-group {
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .main-area input {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .main-area label {
+    font-size: 12px;
+  }
+
+  .resumen-item {
+    padding: 10px 12px;
+    font-size: 12px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .resumen-item span {
+    font-weight: 500;
+  }
+
+  .resumen-item strong {
+    text-align: left;
+  }
+
+  .botones {
+    gap: 8px;
+  }
+
+  button {
+    padding: 10px 5px;
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 18px;
+    margin-left: 0;
+  }
+
+  footer.footer {
+    padding: 10px 15px;
+    font-size: 12px;
+  }
+
+  footer.footer p {
+    margin: 3px 0;
   }
 }
 
