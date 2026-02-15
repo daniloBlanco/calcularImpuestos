@@ -182,6 +182,12 @@ button:hover {
   font-size: 14px;
 }
 
+/* Estilo para deducciones (AFP, ARS, Impuestos) */
+.deduccion {
+  color: #dc2626;
+  font-weight: 600;
+}
+
 /* RESPONSIVE */
 @media (max-width: 600px) {
   .navbar {
@@ -210,7 +216,7 @@ footer.footer {
   text-align: center;
   padding: 15px 20px;
   margin-top: auto;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 footer.footer p {

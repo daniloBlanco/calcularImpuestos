@@ -3,6 +3,14 @@ function formatearMoneda(numero) {
   return "RD$" + numero.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+// Función para formatear deducciones con signo de menos y color rojo
+function formatearDeduccion(numero) {
+  const elemento = document.createElement("span");
+  elemento.className = "deduccion";
+  elemento.textContent = "-" + formatearMoneda(numero);
+  return elemento.textContent;
+}
+
 function calcularIR1() {
   const salarioInput = parseFloat(document.getElementById("salario").value);
 
@@ -23,7 +31,16 @@ function calcularIR1() {
     ids.forEach((id) => {
       const elemento = document.getElementById(id);
       if (elemento) {
-        elemento.textContent = "RD$0.00";
+        // Para deducciones, mostrar con signo de menos
+        if (
+          ["AFP", "ARS", "totalImpuestos", "totalImpuestosAnuales"].includes(id)
+        ) {
+          elemento.textContent = "-RD$0.00";
+          elemento.className = "deduccion";
+        } else {
+          elemento.textContent = "RD$0.00";
+          elemento.className = "";
+        }
       }
     });
     return;
@@ -62,17 +79,33 @@ function calcularIR1() {
   document.getElementById("salarioPdiario").textContent = formatearMoneda(
     salarioPromedioDiario,
   );
-  document.getElementById("AFP").textContent = formatearMoneda(Afp);
-  document.getElementById("ARS").textContent = formatearMoneda(ars);
+
+  // Deducciones en rojo con signo de menos
+  const afpElement = document.getElementById("AFP");
+  afpElement.textContent = "-" + formatearMoneda(Afp);
+  afpElement.className = "deduccion";
+
+  const arsElement = document.getElementById("ARS");
+  arsElement.textContent = "-" + formatearMoneda(ars);
+  arsElement.className = "deduccion";
 
   document.getElementById("salarioSubNetoMensual").textContent =
     formatearMoneda(salarionetoMensual);
-  document.getElementById("totalImpuestos").textContent =
-    formatearMoneda(impuestos);
+
+  const impuestosElement = document.getElementById("totalImpuestos");
+  impuestosElement.textContent = "-" + formatearMoneda(impuestos);
+  impuestosElement.className = "deduccion";
+
   document.getElementById("salarioNetoAnual").textContent =
     formatearMoneda(salarionetoAnual);
-  document.getElementById("totalImpuestosAnuales").textContent =
-    formatearMoneda(totalDeImpuestoAnual);
+
+  const impuestosAnualesElement = document.getElementById(
+    "totalImpuestosAnuales",
+  );
+  impuestosAnualesElement.textContent =
+    "-" + formatearMoneda(totalDeImpuestoAnual);
+  impuestosAnualesElement.className = "deduccion";
+
   document.getElementById("Salariofinal").textContent =
     formatearMoneda(salariofinal);
 }
@@ -100,7 +133,16 @@ function limpiarCampos() {
   ids.forEach((id) => {
     const elemento = document.getElementById(id);
     if (elemento) {
-      elemento.textContent = "RD$0.00";
+      // Para deducciones, mostrar con signo de menos
+      if (
+        ["AFP", "ARS", "totalImpuestos", "totalImpuestosAnuales"].includes(id)
+      ) {
+        elemento.textContent = "-RD$0.00";
+        elemento.className = "deduccion";
+      } else {
+        elemento.textContent = "RD$0.00";
+        elemento.className = "";
+      }
     }
   });
 }
