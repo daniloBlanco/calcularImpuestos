@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Cesantía</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="estilosCesa.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="imagenes/do_dominicana_fondo_1e293b.jpg" width="50" />
+        <span>Calculadora de Impuestos Dominicanos</span>
+      </div>
+
+      <ul class="nav-links">
+        <li>
+          <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="main-area">
+      <main class="content">
+        <h1>Calculo de cesantía</h1>
+
+        <p>Aquí irá la calculadora de cesantía.</p>
+        <br />
+        <br />
+
+        <input id="nombre" type="text" placeholder="Ingrese su nombre" />
+        <input id="cedula" type="text" placeholder="Ingrese su cedula" />
+        <br />
+        <input
+          id="salario"
+          type="text"
+          placeholder="Ingrese su salario mensual"
+        />
+        <br />
+        <br />
+
+        <label for="mensaje">Fecha de ingreso </label>
+        <input
+          id="fecha"
+          type="date"
+          placeholder="Ingrese su fecha de ingreso al trabajo"
+        />
+
+        <label for="mensaje">Fecha de salida </label>
+        <input
+          id="fechaSalida"
+          type="date"
+          placeholder="Ingrese su fecha de salida del trabajo"
+        />
+
+        <br />
+        <br />
+        <label for="calculo">Selecione tipo de cálculo</label>
+        <br />
+
+        <input type="radio" id="Ordinario" name="calculo" value="ordinario" />
+        <label for="Ordinario">Ordinario</label>
+
+        <input
+          type="radio"
+          id="Intermitente"
+          name="calculo"
+          value="intermitente"
+        />
+        <label for="Intermitente">Intermitente</label>
+
+        <br />
+        <br />
+
+        <p>
+          <strong>Jornada ordinaria:</strong> Es la ejecutada por trabajadores
+          dentro de un período que no exceda de ocho (8) horas al día ni de
+          cuarenta y cuatro (44) a la semana.
+        </p>
+
+        <br />
+        <label for="Referencia">Referencia</label>
+        <a
+          href="https://knowledge.admcloud.net/Knowledge/View/codigo-trabajo-republica-dominicana---libro-tercero---titulo-ii---de-la-jornada-de-trabajo-del-descanso-semanal"
+          >Art-147
+        </a>
+        <label for="e">del codigo de trabajo</label>
+
+        <br />
+        <br />
+        <!-- ================= BOTONES ================= -->
+        <div class="botones">
+          <button class="btn calcular">
+            <i class="fas fa-calculator"></i> CALCULAR
+          </button>
+
+          <button class="btn imprimir">
+            <i class="fas fa-print"></i> IMPRIMIR
+          </button>
+
+          <button class="btn ayuda">
+            <i class="fas fa-question-circle"></i> AYUDA
+          </button>
+
+          <button class="btn limpiar">
+            <i class="fas fa-file"></i> LIMPIAR
+          </button>
+        </div>
+      </main>
+
+      <!-- ================= OPCIONES SEPARADAS ================= -->
+      <aside class="opciones-area">
+        <!-- ================= RESUMEN ================= -->
+        <div class="card-resumen">
+          <div class="resumen-item">
+            <span>Sumatoria de los salarios</span>
+            <strong id="sumatoriaaSalarios">RD$0.00</strong>
+          </div>
+
+          <div class="resumen-item">
+            <span>Salario promedio mensual</span>
+            <strong id="salarioPromedioMensual">RD$0.00</strong>
+          </div>
+
+          <div class="resumen-item">
+            <span>Salario promedio diario</span>
+            <strong id="salarioPdiario">RD$0.00</strong>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="card-opciones">
+          <div class="fila">
+            <span>¿Ha sido usted pre-avisado? (reduce días de preaviso)</span>
+            <label class="switch">
+              <input type="checkbox" id="preAvisado" />
+              <span class="slider"></span>
+            </label>
+            <strong id="montoPreaviso">RD$0.00</strong>
+          </div>
+
+          <hr />
+
+          <div class="fila">
+            <span>¿Desea incluir cesantía? (agrega monto adicional)</span>
+            <label class="switch">
+              <input type="checkbox" id="incluirCesantia" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="sub-opcion">
+            <span>Art. 80 C.T. antes 1992:</span>
+            <strong id="montoAntes1992">RD$0.00</strong>
+          </div>
+
+          <div class="sub-opcion">
+            <span>Art. 80 C.T. después 1992:</span>
+            <strong id="montoDespues1992">RD$0.00</strong>
+          </div>
+
+          <hr />
+
+          <div class="fila">
+            <span
+              >¿Ha tomado las vacaciones correspondientes al último año? (reduce
+              días de vacaciones)</span
+            >
+            <label class="switch">
+              <input type="checkbox" id="vacacionesTomadas" />
+              <span class="slider"></span>
+            </label>
+            <strong id="montoVacaciones">RD$0.00</strong>
+          </div>
+
+          <div class="sub-total">
+            <span>Sub-Total:</span>
+            <strong id="subTotal">RD$0.00</strong>
+          </div>
+
+          <div class="fila">
+            <span
+              >¿Incluir salario de navidad? (agrega monto de salario
+              navideño)</span
+            >
+            <label class="switch">
+              <input type="checkbox" id="salarioNavidad" />
+              <span class="slider"></span>
+            </label>
+            <strong id="montoNavidad">RD$0.00</strong>
+          </div>
+
+          <div class="total-final">
+            <span>Total a Recibir:</span>
+            <strong id="totalFinal">RD$0.00</strong>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      <p>© 2026 Calculadora de Impuestos Dominicanos</p>
+      <p>Este sitio no es oficial del Estado Dominicano.</p>
+    </footer>
+
+    <script src="cesantia.js"></script>
+  </body>
+</html>

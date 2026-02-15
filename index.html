@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="estilosDelIndex.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="imagenes/do_dominicana_fondo_1e293b.jpg" width="60" />
+        <span>Calculadora de Impuestos dominicanos</span>
+      </div>
+
+      <ul class="nav-links">
+        <li>
+          <a href="#"
+            ><i class="fas fa-file-invoice-dollar"></i> Calcular Impuestos sobre
+            la renta</a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fas fa-home"></i> Impuesto al patrimonio inmobiliario</a
+          >
+        </li>
+        <li>
+          <a href="cesantia.html"><i class="fas fa-briefcase"></i> Cesantía</a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-car"></i> Impuesto sobre vehículos</a>
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fas fa-shopping-cart"></i> Impuesto selectivo al
+            consumo</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="main-area">
+      <main class="content">
+        <h1>Bienvenido a la calculadora de impuestos dominicanos</h1>
+
+        <br />
+
+        <p>Aquí podrás calcular tus impuestos de manera fácil y rápida.</p>
+
+        <p class="aviso">
+          Esta página no es una entidad gubernamental ni está afiliada a ninguna
+          institución oficial del Estado dominicano. La información y los
+          cálculos mostrados son de carácter informativo, basados en las leyes
+          vigentes de la República Dominicana, y no sustituyen la información
+          oficial emitida por las autoridades competentes.
+        </p>
+      </main>
+
+      <div class="imagen-area">
+        <img id="calculadora" src="imagenes/case.png" width="200" />
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>© 2026 Calculadora de Impuestos Dominicanos</p>
+      <p>Este sitio no es oficial del Estado Dominicano.</p>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        document.querySelector(".sidebar").classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>
